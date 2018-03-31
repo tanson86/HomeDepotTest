@@ -12,5 +12,5 @@ public abstract interface ExtendedCustomerReviewDao extends CustomerReviewDao
 /*
 Get reviews for a product within the given range
 */
-  public abstract List<CustomerReviewModel> getReviewsForProductBetweenRatingRange(ProductModel 									paramProductModel,int min,int max);
+  public abstract Integer getReviewsForProductBetweenRatingRange(ProductModel 									paramProductModel,int min,int max);
 }

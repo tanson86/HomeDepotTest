@@ -16,16 +16,16 @@
    extends DefaultCustomerReviewDao
    implements ExtendedCustomerReviewDao
  {
-   public List<CustomerReviewModel> getReviewsForProductBetweenRatingRange(ProductModel product,int min,int max)
+   public Integer getReviewsForProductBetweenRatingRange(ProductModel product,int min,int max)
    {
-      String query = "SELECT {" + Item.PK + "} FROM {" + "CustomerReview" + "} WHERE {" + "product" + "}=?product and rating between {" + "min" + "} and {" + "max" + "} ORDER BY {" + "creationtime" + "} DESC";
+      String query = "SELECT count(*) FROM {" + "CustomerReview" + "} WHERE {" + "product" + "}=?product and rating between {" + "min" + "} and {" + "max" + "} ORDER BY {" + "creationtime" + "} DESC";
       FlexibleSearchQuery fsQuery = new FlexibleSearchQuery(query);
       fsQuery.addQueryParameter("product", product);
 			 fsQuery.addQueryParameter("min", min);
 			 fsQuery.addQueryParameter("max", max);
-      fsQuery.setResultClassList(Collections.singletonList(CustomerReviewModel.class));
+      fsQuery.setResultClass(Integer.class);
      
-      SearchResult<CustomerReviewModel> searchResult = getFlexibleSearchService().search(fsQuery);
+      SearchResult<Integer> searchResult = getFlexibleSearchService().search(fsQuery);
       return searchResult.getResult();
    }
    
